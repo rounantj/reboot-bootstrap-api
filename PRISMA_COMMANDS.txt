@@ -1,0 +1,4 @@
+#COMMANDS
+npx prisma migrate dev --name=update_product_categories_relationship init
+
+npx prisma generate

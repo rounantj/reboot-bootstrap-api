@@ -1,0 +1,15 @@
+
+{
+  "apiContext": "api",
+  "apiVersion": "v1",
+  "serverPort": 1009,
+  "smtpHost": "",
+  "smtpPort": 465,
+  "smtpSecure": true,
+  "smtpUser": "",
+  "smtpPass": "",
+  "mailFrom": "",
+  "frontURL": "",
+  "jwtSecret": "",
+  "defaultPassword": ""
+}
