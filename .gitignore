@@ -104,6 +104,6 @@ dist
 .tern-port
 
 reboot.config.json
-.env
+#.env
 node_modules
 /node_modules
