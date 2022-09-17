@@ -21,11 +21,10 @@ export interface OrderFetchOneResponseDTO {
 // Save DTOs
 export interface OrderSavePayloadDTO {
   name: string;
-  slug: string;
   clientId: number;
   userId: number;
   discount?: number;
-  products: product[]
+  products: string
 }
 export interface OrderSaveResponseDTO {
   order: order;

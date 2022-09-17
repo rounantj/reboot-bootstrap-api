@@ -34,22 +34,13 @@ export default class ProductRouter implements AppRouter {
     return this;
   }
 
-  public showBySlug() {
-    this.router.get(
-      "/slug/:slug",
-      resourcePermission(`${permissions.view} ${modules.order}`),
-      async (request: Request, response: Response) => {
-        this.controller.showBySlug(request, response);
-      }
-    );
-    return this;
-  }
 
   public store() {
     this.router.post(
       "/",
       resourcePermission(`${permissions.create} ${modules.order}`),
       async (request: Request, response: Response) => {
+        console.log('começo', request.body)
         this.controller.store(request, response);
       }
     );

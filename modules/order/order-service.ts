@@ -33,15 +33,9 @@ export default class orderService {
     return { order }
   }
 
-  async fetchBySlug(
-    slug: string,
-    params: OrderFetchAllPayloadDTO
-  ): Promise<OrderFetchOneResponseDTO> {
-    const order = await this.orderRepository.getBySlug(slug, params)
-    return { order }
-  }
 
   async store(payload: OrderSavePayloadDTO): Promise<OrderSaveResponseDTO> {
+    console.log(payload)
     const order = await this.orderRepository.save(payload)
     return { order }
   }

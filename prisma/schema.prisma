@@ -51,7 +51,8 @@ model company {
 
 model order {
   id     Int               @id @default(autoincrement())
-  userId Int               @unique            
+  name   String                       
+  userId Int                      
   clientId Int 
   client   client          @relation(fields: [clientId], references: [id])                    
   user     user            @relation(fields: [userId], references: [id])                    

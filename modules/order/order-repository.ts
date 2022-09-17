@@ -1,4 +1,4 @@
-import { PrismaClient, order } from "@prisma/client";
+import { PrismaClient, order, product } from "@prisma/client";
 import { OrderFetchAllPayloadDTO } from "./order-interfaces";
 
 export default class orderRepository {
@@ -6,11 +6,7 @@ export default class orderRepository {
 
 
   public async all(params: OrderFetchAllPayloadDTO): Promise<Array<order>> {
-    const data = await this.client.order.findMany({
-      include: {
-        category: params.category,
-      },
-    });
+    const data = await this.client.order.findMany();
 
     return data;
   }
@@ -20,34 +16,39 @@ export default class orderRepository {
     params: OrderFetchAllPayloadDTO
   ): Promise<order | null> {
     const order = await this.client.order.findFirst({
-      where: { id },
-      include: {
-        category: params.category,
-      },
+      where: { id }
     });
     return order;
   }
 
-  public async getBySlug(
-    slug: string,
-    params: OrderFetchAllPayloadDTO
-  ): Promise<order | null> {
-    const order = await this.client.order.findFirst({
-      where: { slug },
-      include: {
-        category: params.category,
-      },
-    });
-    return order;
-  }
+
 
   public async save(data: any): Promise<order> {
     const order = await this.client.order.create({
-      include: {
-        category: true,
-      },
       data,
     });
+
+    try {
+      if (order.products) {
+        let PRD: any = JSON.parse(order.products?.toString())
+        for (const k in PRD) {
+          let prd: product | null = await this.client.product.findFirst({ where: { id: PRD[k].id } })
+          if (prd) {
+            let estoque = Number(prd.estoque - PRD[k].quantidade)
+            let data = {
+              ...prd,
+              estoque: estoque
+            }
+            await this.client.product.update({ where: { id: PRD[k].id }, data })
+
+          }
+
+        }
+      }
+
+    } catch (err) {
+      console.log(err)
+    }
 
     return order;
   }
@@ -55,9 +56,7 @@ export default class orderRepository {
   public async update(id: number, data: Object): Promise<order> {
     const order = await this.client.order.update({
       where: { id },
-      include: {
-        category: true,
-      },
+
       data,
     });
 

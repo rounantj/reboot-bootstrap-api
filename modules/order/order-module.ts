@@ -20,6 +20,6 @@ export default class ProductModule implements Module {
   }
 
   private loadRoutes() {
-    this.router.index().show().showBySlug().store().update().delete();
+    this.router.index().show().store().update().delete();
   }
 }

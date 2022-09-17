@@ -47,8 +47,8 @@ const load = async () => {
     if (dbRole) {
       const salt = await bcrypt.genSalt();
       const password = await bcrypt.hash(env.defaultPassword, salt);
-      await client.user.create({
-        data: {
+      await client.user.createMany({
+        data: [{
           name: "Ronan Rodrigues",
           email: "ronanr@weg.net",
           password: `${password}`,
@@ -56,6 +56,15 @@ const load = async () => {
           status: `approved`,
           roleId: dbRole.id,
         },
+        {
+          name: "Gabriel",
+          email: "body-health-jacupemba@gmail.com",
+          password: `mdt1234@`,
+          companyId: 1,
+          status: `approved`,
+          roleId: dbRole.id,
+        },
+        ]
       });
     }
 

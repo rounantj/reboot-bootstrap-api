@@ -12,11 +12,8 @@ export default class ProductController {
 
   public async index(request: Request, response: Response) {
     try {
-      const params = this._verifyParamsRelations(
-        request.query.includes?.toString()
-      );
 
-      const products = await this.service.fetchAll(params);
+      const products = await this.service.fetchAll(request.body);
 
       return onSuccess(response, 200, products);
     } catch (error: any) {
@@ -27,10 +24,8 @@ export default class ProductController {
   public async show(request: Request, response: Response) {
     try {
       const orderId = parseInt(request.params.id);
-      const params = this._verifyParamsRelations(
-        request.query.includes?.toString()
-      );
-      const order = await this.service.fetchById(orderId, params);
+
+      const order = await this.service.fetchById(orderId, request.body);
 
       return onSuccess(response, 200, order);
     } catch (error: any) {
@@ -38,21 +33,7 @@ export default class ProductController {
     }
   }
 
-  public async showBySlug(request: Request, response: Response) {
-    try {
-      const params = this._verifyParamsRelations(
-        request.query.includes?.toString()
-      );
-      const order = await this.service.fetchBySlug(
-        request.params.slug,
-        params
-      );
 
-      return onSuccess(response, 200, order);
-    } catch (error: any) {
-      return onError(response, error);
-    }
-  }
 
   public async store(request: Request, response: Response) {
     try {
