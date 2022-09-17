@@ -1,0 +1,16 @@
+
+{
+  "apiContext": "api",
+  "tes": "TETE",
+  "apiVersion": "v1",
+  "serverPort": 1009,
+  "smtpHost": "smtp.dreamhost.com",
+  "smtpPort": 465,
+  "smtpSecure": true,
+  "smtpUser": "tmf@aprovar.site",
+  "smtpPass": "",
+  "mailFrom": "tmf@aprovar.site",
+  "frontURL": "tmf.aprovar.site",
+  "jwtSecret": "mdt1234@",
+  "defaultPassword": "mdt1234@"
+}
