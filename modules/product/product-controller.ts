@@ -24,6 +24,21 @@ export default class ProductController {
     }
   }
 
+
+
+  public async upload(request: Request, response: Response, uploads: any) {
+    try {
+      const { file } = request
+      return onSuccess(response, 200, { file });
+    } catch (error: any) {
+      return onError(response, error);
+    }
+  }
+
+
+
+
+
   public async show(request: Request, response: Response) {
     try {
       const productId = parseInt(request.params.id);
@@ -45,6 +60,22 @@ export default class ProductController {
       );
       const product = await this.service.fetchBySlug(
         request.params.slug,
+        params
+      );
+
+      return onSuccess(response, 200, product);
+    } catch (error: any) {
+      return onError(response, error);
+    }
+  }
+
+  public async showByEan(request: Request, response: Response) {
+    try {
+      const params = this._verifyParamsRelations(
+        request.query.includes?.toString()
+      );
+      const product = await this.service.fetchByEan(
+        request.params.ean,
         params
       );
 

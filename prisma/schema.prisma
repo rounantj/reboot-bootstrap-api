@@ -17,7 +17,10 @@ model user {
   status           String? 
   identification   String?
   roleId           Int
-  role             role       @relation(fields: [roleId], references: [id]) 
+  companyId        Int
+  orders           order[]
+  company          company     @relation(fields: [companyId], references: [id]) 
+  role             role        @relation(fields: [roleId], references: [id]) 
   activatedAt      DateTime? 
   createdAt        DateTime    @default(now())
   updatedAt        DateTime    @updatedAt
@@ -36,16 +39,54 @@ model permission {
   roles role_permission[]
 }
 
+model company {
+  id    Int               @id @default(autoincrement())
+  name  String           
+  slug  String       
+  users user[]    
+  cnpj  String?           
+}
+
+
+
+model order {
+  id     Int               @id @default(autoincrement())
+  userId Int               @unique            
+  clientId Int 
+  client   client          @relation(fields: [clientId], references: [id])                    
+  user     user            @relation(fields: [userId], references: [id])                    
+  discount Float?                     
+  products Json
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+}
+
+
+model client {
+  id        Int               @id @default(autoincrement())
+  name      String                        
+  identification String?                     
+  telephone String?                     
+  address  Float?   
+  orders   order[]
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+}
+
+
  
 model product {
   id         Int        @id @default(autoincrement())
   name       String
-  slug       String
-  weight     Float
-  lang       String
+  slug       String?
+  value      Float?
+  lang       String?
+  ean        String?
+  picture    String?
+  estoque    Int
   categoryId Int
   category   category   @relation(fields: [categoryId], references: [id])
-  status     String
+  status     Int
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 }

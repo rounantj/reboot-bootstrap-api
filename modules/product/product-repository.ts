@@ -2,7 +2,7 @@ import { PrismaClient, product } from "@prisma/client";
 import { ProductFetchAllPayloadDTO } from "./product-interfaces";
 
 export default class productRepository {
-  constructor(private readonly client: PrismaClient) {}
+  constructor(private readonly client: PrismaClient) { }
 
 
   public async all(params: ProductFetchAllPayloadDTO): Promise<Array<product>> {
@@ -40,6 +40,19 @@ export default class productRepository {
     });
     return product;
   }
+  public async getByEan(
+    ean: string,
+    params: ProductFetchAllPayloadDTO
+  ): Promise<product | null> {
+    const product = await this.client.product.findFirst({
+      where: { ean },
+      include: {
+        category: params.category,
+      },
+    });
+    return product;
+  }
+
 
   public async save(data: any): Promise<product> {
     const product = await this.client.product.create({

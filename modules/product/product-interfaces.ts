@@ -3,7 +3,6 @@ import { product } from "@prisma/client";
 // Fetch All DTOs
 export interface ProductFetchAllPayloadDTO {
   category: boolean;
-  analysis: boolean;
 }
 export interface ProductFetchAllResponseDTO {
   products: Array<product>;
@@ -12,7 +11,6 @@ export interface ProductFetchAllResponseDTO {
 // Fetch By ID DTOs
 export interface ProductFetchOnePayloadDTO {
   category: boolean;
-  analysis: boolean;
 }
 export interface ProductFetchOneResponseDTO {
   product: product | null;
@@ -22,6 +20,12 @@ export interface ProductFetchOneResponseDTO {
 export interface ProductSavePayloadDTO {
   name: string;
   slug: string;
+  ean: string;
+  lang: string;
+  picture: string;
+  status: number;
+  value: number;
+  estoque: number;
   categoryId: number;
 }
 export interface ProductSaveResponseDTO {
@@ -32,6 +36,12 @@ export interface ProductSaveResponseDTO {
 export interface ProductUpdatePayloadDTO {
   name?: string;
   slug?: string;
+  ean?: string;
+  lang?: string;
+  picture?: string;
+  status?: number;
+  value?: number;
+  estoque?: number;
   categoryId?: number;
 }
 export interface ProductUpdateResponseDTO {
@@ -39,7 +49,7 @@ export interface ProductUpdateResponseDTO {
 }
 
 // Destroy DTOs
-export interface ProductDestroyPayloadDTO {}
+export interface ProductDestroyPayloadDTO { }
 export interface ProductDestroyResponseDTO {
   product: product;
 }

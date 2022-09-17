@@ -41,6 +41,16 @@ export default class productService {
     return { product }
   }
 
+
+  async fetchByEan(
+    ean: string,
+    params: ProductFetchAllPayloadDTO
+  ): Promise<ProductFetchOneResponseDTO> {
+    const product = await this.productRepository.getByEan(ean, params)
+    return { product }
+  }
+
+
   async store(payload: ProductSavePayloadDTO): Promise<ProductSaveResponseDTO> {
     const product = await this.productRepository.save(payload)
     return { product }

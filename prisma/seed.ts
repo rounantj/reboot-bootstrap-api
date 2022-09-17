@@ -5,7 +5,8 @@ import { permissions } from "../helpers/permissions";
 import { modules } from "../helpers/modules";
 import * as fs from "fs";
 import bcrypt from "bcrypt";
- 
+import produtos from '../helpers/produtos.json'
+
 
 let config = fs.readFileSync("reboot.config.json");
 const env = JSON.parse(config.toString());
@@ -35,6 +36,13 @@ const load = async () => {
         name: roles.superAdmin,
       },
     });
+    await client.company.create({
+      data: {
+        name: "Reboot Soluções",
+        cnpj: '13200397748',
+        slug: 'reboot-solucoes',
+      }
+    })
 
     if (dbRole) {
       const salt = await bcrypt.genSalt();
@@ -44,6 +52,7 @@ const load = async () => {
           name: "Ronan Rodrigues",
           email: "ronanr@weg.net",
           password: `${password}`,
+          companyId: 1,
           status: `approved`,
           roleId: dbRole.id,
         },
@@ -103,6 +112,29 @@ const load = async () => {
       data: adminPermissions,
     });
     console.log("Added default permissions to roles data");
+    await client.category.create({
+      data: {
+        name: "general", slug: "general", lang: "pt-br"
+      }
+    })
+
+    for (const k in produtos) {
+      await client.product.create({
+        data: {
+          name: produtos[k].descricao,
+          estoque: produtos[k].estoque,
+          value: produtos[k].valor,
+          picture: produtos[k].imagen,
+          status: produtos[k].status,
+          ean: produtos[k].ean,
+          lang: "pt-BR",
+          slug: produtos[k].descricao.replace(/ /g, '-'),
+          categoryId: 1,
+        }
+      })
+    }
+
+    console.log("Added products");
 
 
 
