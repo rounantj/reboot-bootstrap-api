@@ -30,12 +30,6 @@ class orderService {
             return { order };
         });
     }
-    fetchBySlug(slug, params) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const order = yield this.orderRepository.getBySlug(slug, params);
-            return { order };
-        });
-    }
     store(payload) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(payload);

@@ -12,7 +12,7 @@ class ProductModule {
         this.loadRoutes();
     }
     loadRoutes() {
-        this.router.index().show().showBySlug().store().update().delete();
+        this.router.index().show().store().update().delete();
     }
 }
 exports.default = ProductModule;

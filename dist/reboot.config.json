@@ -1,5 +1,6 @@
 {
     "apiContext": "api",
+    "tes": "TETE",
     "apiVersion": "v1",
     "serverPort": 1009,
     "smtpHost": "smtp.dreamhost.com",

@@ -42,17 +42,6 @@ class ProductController {
             }
         });
     }
-    showBySlug(request, response) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const order = yield this.service.fetchBySlug(request.params.slug, request.body);
-                return (0, reboot_solutions_cms_1.onSuccess)(response, 200, order);
-            }
-            catch (error) {
-                return (0, reboot_solutions_cms_1.onError)(response, error);
-            }
-        });
-    }
     store(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

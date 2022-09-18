@@ -15,44 +15,40 @@ class orderRepository {
     }
     all(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield this.client.order.findMany({
-                include: {
-                    category: params.category,
-                },
-            });
+            const data = yield this.client.order.findMany();
             return data;
         });
     }
     get(id, params) {
         return __awaiter(this, void 0, void 0, function* () {
             const order = yield this.client.order.findFirst({
-                where: { id },
-                include: {
-                    category: params.category,
-                },
-            });
-            return order;
-        });
-    }
-    getBySlug(slug, params) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const order = yield this.client.order.findFirst({
-                where: { slug },
-                include: {
-                    category: params.category,
-                },
+                where: { id }
             });
             return order;
         });
     }
     save(data) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             const order = yield this.client.order.create({
-                include: {
-                    category: true,
-                },
                 data,
             });
+            try {
+                if (order.products) {
+                    let PRD = JSON.parse((_a = order.products) === null || _a === void 0 ? void 0 : _a.toString());
+                    for (const k in PRD) {
+                        let prd = yield this.client.product.findFirst({ where: { id: PRD[k].id } });
+                        if (prd) {
+                            let estoque = Number(prd.estoque - PRD[k].quantidade);
+                            let data = Object.assign(Object.assign({}, prd), { estoque: estoque });
+                            yield this.client.product.update({ where: { id: PRD[k].id }, data });
+                        }
+                    }
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
             return order;
         });
     }
@@ -60,9 +56,6 @@ class orderRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const order = yield this.client.order.update({
                 where: { id },
-                include: {
-                    category: true,
-                },
                 data,
             });
             return order;

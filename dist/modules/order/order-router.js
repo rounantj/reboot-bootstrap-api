@@ -33,12 +33,6 @@ class ProductRouter {
         }));
         return this;
     }
-    showBySlug() {
-        this.router.get("/slug/:slug", (0, resourcePermission_1.resourcePermission)(`${permissions_1.permissions.view} ${modules_1.modules.order}`), (request, response) => __awaiter(this, void 0, void 0, function* () {
-            this.controller.showBySlug(request, response);
-        }));
-        return this;
-    }
     store() {
         this.router.post("/", (0, resourcePermission_1.resourcePermission)(`${permissions_1.permissions.create} ${modules_1.modules.order}`), (request, response) => __awaiter(this, void 0, void 0, function* () {
             console.log('começo', request.body);
