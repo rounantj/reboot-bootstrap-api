@@ -21,7 +21,7 @@ export default class ProductRouter implements AppRouter {
   public index() {
     this.router.get(
       "/",
-      resourcePermission(`${permissions.view} ${modules.product}`),
+      
       (request: Request, response: Response) =>
         this.controller.index(request, response)
     );
@@ -43,7 +43,7 @@ export default class ProductRouter implements AppRouter {
   public show() {
     this.router.get(
       "/id/:id",
-      resourcePermission(`${permissions.view} ${modules.product}`),
+      
       async (request: Request, response: Response) => {
         this.controller.show(request, response);
       }
@@ -54,7 +54,7 @@ export default class ProductRouter implements AppRouter {
   public showBySlug() {
     this.router.get(
       "/slug/:slug",
-      resourcePermission(`${permissions.view} ${modules.product}`),
+      
       async (request: Request, response: Response) => {
         this.controller.showBySlug(request, response);
       }
@@ -65,7 +65,7 @@ export default class ProductRouter implements AppRouter {
   public showByEan() {
     this.router.get(
       "/ean/:ean",
-      resourcePermission(`${permissions.view} ${modules.product}`),
+      
       async (request: Request, response: Response) => {
         this.controller.showByEan(request, response);
       }
@@ -76,7 +76,7 @@ export default class ProductRouter implements AppRouter {
   public store() {
     this.router.post(
       "/",
-      resourcePermission(`${permissions.create} ${modules.product}`),
+     
       async (request: Request, response: Response) => {
         this.controller.store(request, response);
       }
@@ -87,7 +87,7 @@ export default class ProductRouter implements AppRouter {
   public update() {
     this.router.patch(
       "/:id",
-      resourcePermission(`${permissions.update} ${modules.product}`),
+      
       async (request: Request, response: Response) => {
         this.controller.update(request, response);
       }
