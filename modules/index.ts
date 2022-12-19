@@ -14,7 +14,7 @@ const prismaClient = new PrismaClient();
 
 export const modules = [
 
-  new ProductModule(module.product, false, prismaClient),
+  new ProductModule(module.product, true, prismaClient),
   new OrderModule(module.order, false, prismaClient),
   new CategoryModule(module.category, false, prismaClient),
   new Email_TemplateModule(module.email_template, true, prismaClient),
