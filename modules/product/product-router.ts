@@ -97,7 +97,6 @@ export default class ProductRouter implements AppRouter {
   public delete() {
     this.router.delete(
       "/:id",
-      resourcePermission(`${permissions.destroy} ${modules.product}`),
       async (request: Request, response: Response) => {
         this.controller.destroy(request, response);
       }
